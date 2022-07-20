@@ -34,7 +34,12 @@ export const Home = () => {
                 >
                     <Text>Our Topics</Text>
                 </Flex>
-                <Flex bgColor="#D3D3D3" width="100%" p="0 24px 24px 24px">
+                <Flex
+                    bgColor="#D3D3D3"
+                    width="100%"
+                    p="0 24px 24px 24px"
+                    justifyContent="center"
+                >
                     <Flex
                         border="solid black 2px"
                         direction="column"

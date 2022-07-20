@@ -45,6 +45,7 @@ import {
     SimpleGrid,
 } from "@chakra-ui/react";
 import PlainText from "./PlainText";
+import RichText from "./RichText";
 import { UserContext } from "../UserContext";
 // import TableauEmbed from "./TableauEmbed";
 // import TableauEmbedIFrame from "./TableauEmbedIFrame";
@@ -76,9 +77,9 @@ const HOTKEYS = {
 
 const LIST_TYPES = ["numbered-list", "bulleted-list"];
 const TEXT_ALIGN_TYPES = ["left", "center", "right", "justify"];
-
+var storageIdString;
 const TableauEditor = (props) => {
-    const storageIdString = JSON.stringify(props.storageId);
+    storageIdString = JSON.stringify(props.storageId);
 
     const editor = useMemo(
         () =>
@@ -180,6 +181,7 @@ const TableauEditor = (props) => {
                 renderElement={renderElement}
                 renderLeaf={renderLeaf}
                 placeholder="Enter some text..."
+                spellCheck
                 autoFocus
                 onKeyDown={(event) => {
                     for (const hotkey in HOTKEYS) {
@@ -269,9 +271,9 @@ const withTableauHTML = (editor) => {
 };
 
 const withTableauwithTextHTML = (editor) => {
-    const { isVoid } = editor;
-    editor.isVoid = (element) =>
-        element.type === "tableau-text-html" ? true : isVoid(element);
+    // const { isVoid } = editor;
+    // editor.isVoid = (element) =>
+    //     element.type === "tableau-text-html" ? true : isVoid(element);
     return editor;
 };
 
@@ -415,7 +417,12 @@ const Element = (props) => {
         case "tableau-html":
             return <TableauHTMLElement {...props} />;
         case "tableau-text-html":
-            return <TableauWithTextHTMLElement {...props} />;
+            // return <TableauWithTextHTMLElement {...props} />;
+            return (
+                <TableauWithTextHTMLElement {...props}>
+                    {children}
+                </TableauWithTextHTMLElement>
+            );
         default:
             return (
                 <p style={style} {...attributes}>
@@ -966,9 +973,27 @@ const TableauWithTextHTMLElement = ({ attributes, children, element }) => {
                         <></>
                     )}
                     {textOnLeft ? (
-                        <Box display="flex" alignItems="center">
-                            <Box width={sliderValue.toString() + "%"}>
-                                <PlainText />
+                        <Box display="flex" alignItems="center " height="100%">
+                            <Box
+                                width={sliderValue.toString() + "%"}
+                                height="100%"
+                            >
+                                {/* <PlainText /> */}
+                                <Box height="100%">
+                                    <RichText
+                                        storageId={storageIdString + "storage"}
+                                        initialValue={[
+                                            {
+                                                type: "paragraph",
+                                                children: [
+                                                    {
+                                                        text: "",
+                                                    },
+                                                ],
+                                            },
+                                        ]}
+                                    />
+                                </Box>
                             </Box>
                             <Box width={(100 - sliderValue).toString() + "%"}>
                                 <Box
@@ -1163,12 +1188,13 @@ const TableauWithTextHTMLElement = ({ attributes, children, element }) => {
                             </Box>
                             <Box width={(100 - sliderValue).toString() + "%"}>
                                 <PlainText />
+                                {/* {children} */}
                             </Box>
                         </Box>
                     )}
                 </div>
             </div>
-            {children}
+            {/* {children} */}
         </div>
     );
 };

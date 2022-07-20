@@ -67,6 +67,13 @@ export const SecretLogin = () => {
                     <Button type="submit">Authenticate</Button>
                 </form>
                 <Box>
+                    {isAdmin ? (
+                        <Box>You are logged in </Box>
+                    ) : (
+                        <Box>You are logged out</Box>
+                    )}
+                </Box>
+                <Box>
                     <Button
                         onClick={async () => {
                             setisAdmin(false);
