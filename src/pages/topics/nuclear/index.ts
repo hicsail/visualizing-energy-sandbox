@@ -1,0 +1,10 @@
+export { Availability as Availability } from "./AvailabilityPage";
+export { Accidents as Accidents } from "./AccidentsPage";
+export { Capacity as Capacity } from "./CapacityPage";
+export { Generation as Generation } from "./GenerationPage";
+export { Nuclear as Nuclear } from "./NuclearPage";
+export { Price as Price } from "./PricePage";
+export { Reactors as Reactors } from "./ReactorsPage";
+export { Trade as Trade } from "./TradePage";
+export { Uranium as Uranium } from "./UraniumPage";
+export { Waste as Waste } from "./WastePage";
